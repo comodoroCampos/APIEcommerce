@@ -6,6 +6,8 @@ import path from 'path';
 import socketIO from 'socket.io';
 import http from 'http';
 import apuntesRoute from '../routers/producto_route';
+import stockRoute from '../routers/stock_route';
+import inventarioRoute from '../routers/inventario_route';
 
 export default class Server {
     private static _intance: Server;
@@ -18,6 +20,8 @@ export default class Server {
 
     private apiPatch = {
         producto: '/api/producto',
+        stock: '/api/stock',
+        inventario: '/api/inventario',
        
     };
 
@@ -82,6 +86,8 @@ export default class Server {
     routes() {
      
         this.app.use(this.apiPatch.producto, apuntesRoute);
+        this.app.use(this.apiPatch.stock, stockRoute);
+        this.app.use(this.apiPatch.inventario, inventarioRoute);
         this.app.get('*', (req: Request, res: Response) => {
             res.sendFile(path.resolve(__dirname, 'public/index.html'));
         });
