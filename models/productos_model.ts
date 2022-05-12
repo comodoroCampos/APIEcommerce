@@ -3,6 +3,7 @@ import {Schema, Model, Document, model} from 'mongoose';
 export interface Producto extends Document {
     nombre: string;
     precio: number;
+    codigo:string;
     descripcion: string;
     categoria: string;
     imagen: string[];
@@ -27,6 +28,10 @@ const ProductoSchema : Schema = new Schema({
     },
     imagen: {
         type: [String],
+        required: true
+    },
+    codigo: {
+        type: String,
         required: true
     }
 });

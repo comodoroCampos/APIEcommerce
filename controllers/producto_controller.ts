@@ -3,7 +3,9 @@ import ProductoModel from '../models/productos_model';
 import { Producto } from '../models/productos_model';
 
 export const getProductos = async (req: Request, res: Response) => {
+    console.log("no hace nada");
     const productos = await ProductoModel.find();
+    console.log(productos);
     res.json({
         productos
     });
@@ -41,7 +43,6 @@ export const postProducto = async (req: Request, res: Response) => {
 export const deleteProducto = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    // Fisicamente lo borramos
     const producto = await ProductoModel.findByIdAndDelete(id);
     if (!producto) {
         return res.json({
@@ -56,6 +57,7 @@ export const deleteProducto = async (req: Request, res: Response) => {
 }
 export const putProducto = async (req: Request, res: Response) => {
     const { id } = req.params;
+    console.log(id);
     const { _id, ...resto } = req.params;
     try {
         const producto = await ProductoModel.findByIdAndUpdate(id, resto);
