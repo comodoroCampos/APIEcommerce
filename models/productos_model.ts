@@ -8,6 +8,7 @@ export interface Producto extends Document {
     categoria: string;
     imagen: string[];
 }
+
 const ProductoSchema : Schema = new Schema({
     nombre: {
         type: String,
