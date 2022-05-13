@@ -20,10 +20,14 @@ const path_1 = __importDefault(require("path"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
 const producto_route_1 = __importDefault(require("../routers/producto_route"));
+const stock_route_1 = __importDefault(require("../routers/stock_route"));
+const inventario_route_1 = __importDefault(require("../routers/inventario_route"));
 class Server {
     constructor() {
         this.apiPatch = {
             producto: '/api/producto',
+            stock: '/api/stock',
+            inventario: '/api/inventario',
         };
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json({ limit: '100mb' }));
@@ -74,6 +78,8 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPatch.producto, producto_route_1.default);
+        this.app.use(this.apiPatch.stock, stock_route_1.default);
+        this.app.use(this.apiPatch.inventario, inventario_route_1.default);
         this.app.get('*', (req, res) => {
             res.sendFile(path_1.default.resolve(__dirname, 'public/index.html'));
         });

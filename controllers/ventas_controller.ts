@@ -10,6 +10,7 @@ export const getVentas = async (req: Request, res: Response) => {
     venta,
   });
 };
+
 export const getVentaProducto = async (req: Request, res: Response) => {
   const { producto } = req.params;
   const venta = await VentasModel.find({ producto: producto });
