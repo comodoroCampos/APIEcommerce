@@ -8,6 +8,7 @@ import http from 'http';
 import apuntesRoute from '../routers/producto_route';
 import stockRoute from '../routers/stock_route';
 import inventarioRoute from '../routers/inventario_route';
+import ventasRoute from '../routers/vantas_route';
 
 export default class Server {
     private static _intance: Server;
@@ -22,6 +23,7 @@ export default class Server {
         producto: '/api/producto',
         stock: '/api/stock',
         inventario: '/api/inventario',
+        ventas: '/api/ventas',
        
     };
 
@@ -88,6 +90,7 @@ export default class Server {
         this.app.use(this.apiPatch.producto, apuntesRoute);
         this.app.use(this.apiPatch.stock, stockRoute);
         this.app.use(this.apiPatch.inventario, inventarioRoute);
+        this.app.use(this.apiPatch.ventas, ventasRoute);
         this.app.get('*', (req: Request, res: Response) => {
             res.sendFile(path.resolve(__dirname, 'public/index.html'));
         });
