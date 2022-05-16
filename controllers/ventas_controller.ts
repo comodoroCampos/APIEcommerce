@@ -12,8 +12,8 @@ export const getVentas = async (req: Request, res: Response) => {
 };
 
 export const getVentaProducto = async (req: Request, res: Response) => {
-  const { producto } = req.params;
-  const venta = await VentasModel.find({ producto: producto });
+  const { fecha_desde,fecha_hasta,user } = req.params;
+  const venta = await VentasModel.find({ usuario: user,fecha: { $gte: new Date(fecha_desde), $lte: new Date(fecha_hasta) } });
   res.json({
     venta,
   });
@@ -26,12 +26,12 @@ export const postVentas = async (req: Request, res: Response) => {
     if (ventaModel) {
         const stock = await StockModel.findOne({ producto: ventaModel.producto });
       if(ventaModel.tipo === "venta"){
-        stock!.cantidad += ventaModel.cantidad;
-      }
-      if(ventaModel.tipo === "devolucion"){
         stock!.cantidad -= ventaModel.cantidad;
       }
-       await StockModel.findByIdAndUpdate(stock?.id, {cantidad:ventaModel.cantidad});
+      if(ventaModel.tipo === "devolucion"){
+        stock!.cantidad += ventaModel.cantidad;
+      }
+       await StockModel.findByIdAndUpdate(stock?.id, {cantidad:stock!.cantidad});
       await ventaModel.save();
       res.json({
         stock,

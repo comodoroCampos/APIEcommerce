@@ -6,7 +6,7 @@ import { deleteVentas, getVentaProducto, getVentas, postVentas, putVentas } from
 const router: Router = Router();
 
 router.get('/', getVentas);
-router.get('/:producto', getVentaProducto);
+router.get('/:fecha_desde/:fecha_hasta/:user', getVentaProducto);
 router.post('/', postVentas);
 router.put('/:id', putVentas);
 router.delete('/:id', deleteVentas);
