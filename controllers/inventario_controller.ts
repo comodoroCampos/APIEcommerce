@@ -38,14 +38,14 @@ export const postInventario = async (req: Request, res: Response) => {
     } else {
       res.json({
         ok: false,
-        mensaje: "ha ocurrido un error",
+        mensaje: "Ha ocurrido un error",
       });
     }
   } catch (error) {
     console.log(error);
     res.status(500).json({
       ok: false,
-      mensaje: "ha ocurrido un error",
+      mensaje: "Ha ocurrido un error",
     });
   }
 };
@@ -61,7 +61,7 @@ export const deleteInventario = async (req: Request, res: Response) => {
   }
   res.json({
     ok: true,
-    mensaje: "se ha borrado el producto",
+    mensaje: "Se ha borrado el producto",
   });
 };
 export const putInventario = async (req: Request, res: Response) => {
@@ -78,7 +78,7 @@ export const putInventario = async (req: Request, res: Response) => {
     console.log(error);
     res.status(500).json({
       ok: false,
-      mensaje: "ha ocurrido un error",
+      mensaje: "Ha ocurrido un error",
     });
   }
 };
