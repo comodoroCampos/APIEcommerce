@@ -8,7 +8,7 @@ import http from 'http';
 import apuntesRoute from '../routers/producto_route';
 import stockRoute from '../routers/stock_route';
 import inventarioRoute from '../routers/inventario_route';
-import ventasRoute from '../routers/vantas_route';
+import ventasRoute from '../routers/ventas_route';
 
 export default class Server {
     private static _intance: Server;

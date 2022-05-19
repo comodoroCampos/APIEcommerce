@@ -11,13 +11,30 @@ export const getVentas = async (req: Request, res: Response) => {
   });
 };
 
-export const getVentaProducto = async (req: Request, res: Response) => {
+export const getVentasFechaUsuario = async (req: Request, res: Response) => {
   const { fecha_desde,fecha_hasta,user } = req.params;
   const venta = await VentasModel.find({ usuario: user,fecha: { $gte: new Date(fecha_desde), $lte: new Date(fecha_hasta) } });
   res.json({
     venta,
   });
 };
+
+export const getVentasFechas = async (req: Request, res: Response) => {
+  const {fecha_desde,fecha_hasta} = req.params;
+  const venta = await VentasModel.find({ fecha: { $gte: new Date(fecha_desde), $lte: new Date(fecha_hasta) } });
+  res.json({
+    venta,
+  });
+};
+
+export const getVentasUsuario = async (req: Request, res: Response) => {
+  const { user } = req.params;
+  const venta = await VentasModel.find({ usuario: user });
+  res.json({
+    venta,
+  });
+};
+
 export const postVentas = async (req: Request, res: Response) => {
   const { body } = req;
   const venta: Ventas = body;

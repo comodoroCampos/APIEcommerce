@@ -13,7 +13,7 @@ const VentasSchema = new mongoose_1.Schema({
     fecha: {
         type: Date,
         default: new Date(),
-        required: true
+        required: false
     },
     tipo: {
         type: String,
