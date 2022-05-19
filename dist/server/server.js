@@ -16,7 +16,6 @@ const express_1 = __importDefault(require("express"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const db_1 = __importDefault(require("../database/db"));
 const cors_1 = __importDefault(require("cors"));
-const path_1 = __importDefault(require("path"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
 const producto_route_1 = __importDefault(require("../routers/producto_route"));
@@ -84,7 +83,7 @@ class Server {
         this.app.use(this.apiPatch.inventario, inventario_route_1.default);
         this.app.use(this.apiPatch.ventas, ventas_route_1.default);
         this.app.get('*', (req, res) => {
-            res.sendFile(path_1.default.resolve(__dirname, 'public/index.html'));
+            res.sendFile('index.html', { root: 'public' });
         });
     }
     listen() {
