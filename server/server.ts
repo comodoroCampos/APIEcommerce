@@ -91,9 +91,9 @@ export default class Server {
         this.app.use(this.apiPatch.stock, stockRoute);
         this.app.use(this.apiPatch.inventario, inventarioRoute);
         this.app.use(this.apiPatch.ventas, ventasRoute);
-        this.app.get('*', (req: Request, res: Response) => {
-            res.sendFile(path.resolve(__dirname, 'public/index.html'));
-        });
+        this.app.get('*', (req, res) => {
+            res.sendFile('index.html', {root: 'public'});
+          });
     }
     listen() {
         this.app.listen(this.port, () => {
