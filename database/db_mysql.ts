@@ -12,7 +12,7 @@ const db = new Sequelize(
     {
       host: process.env.DB_HOST ||'190.107.177.232',
       port: 3306,
-      dialect: "mssql",
+      dialect: "mysql",
     }
   );
 export default db;

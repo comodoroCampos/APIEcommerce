@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const db_1 = __importDefault(require("../database/db"));
+const db_mysql_1 = __importDefault(require("../database/db_mysql"));
 const cors_1 = __importDefault(require("cors"));
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
@@ -22,6 +23,7 @@ const producto_route_1 = __importDefault(require("../routers/producto_route"));
 const stock_route_1 = __importDefault(require("../routers/stock_route"));
 const inventario_route_1 = __importDefault(require("../routers/inventario_route"));
 const ventas_route_1 = __importDefault(require("../routers/ventas_route"));
+const producto_mysql_route_1 = __importDefault(require("../routers/producto_mysql-route"));
 class Server {
     constructor() {
         this.apiPatch = {
@@ -29,6 +31,7 @@ class Server {
             stock: '/api/stock',
             inventario: '/api/inventario',
             ventas: '/api/ventas',
+            productoMsql: '/api/mysql/producto',
         };
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json({ limit: '100mb' }));
@@ -69,6 +72,17 @@ class Server {
             }
         });
     }
+    dbMySqlConnection() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield db_mysql_1.default.authenticate();
+                console.log('Database online');
+            }
+            catch (error) {
+                console.log('error base de datos');
+            }
+        });
+    }
     middlewares() {
         // CORS
         this.app.use((0, cors_1.default)());
@@ -82,6 +96,7 @@ class Server {
         this.app.use(this.apiPatch.stock, stock_route_1.default);
         this.app.use(this.apiPatch.inventario, inventario_route_1.default);
         this.app.use(this.apiPatch.ventas, ventas_route_1.default);
+        this.app.use(this.apiPatch.productoMsql, producto_mysql_route_1.default);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', { root: 'public' });
         });
