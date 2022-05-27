@@ -53,6 +53,7 @@ export default class Server {
         this.io = new socketIO.Server(this.httpServer, { cors: { origin: '*' } });
 
         this.dbConnection();
+        this.dbMySqlConnection();
         this.middlewares();
         this.routes();
        // this.escucharSockets();
