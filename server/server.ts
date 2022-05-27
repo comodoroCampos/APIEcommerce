@@ -10,6 +10,7 @@ import stockRoute from '../routers/stock_route';
 import inventarioRoute from '../routers/inventario_route';
 import ventasRoute from '../routers/ventas_route';
 import ProductoMsqlRoute from '../routers/producto_mysql-route';
+import ReportePdfRoute from '../routers/reporte_pdf_route';
 
 export default class Server {
     private static _intance: Server;
@@ -26,6 +27,7 @@ export default class Server {
         inventario: '/api/inventario',
         ventas: '/api/ventas',
         productoMsql: '/api/mysql/producto',
+        reportePdf: '/api/reporte/pdf',
        
     };
 
@@ -53,6 +55,7 @@ export default class Server {
         this.io = new socketIO.Server(this.httpServer, { cors: { origin: '*' } });
 
         this.dbConnection();
+        this.dbMySqlConnection();
         this.middlewares();
         this.routes();
        // this.escucharSockets();
@@ -105,6 +108,7 @@ export default class Server {
         this.app.use(this.apiPatch.inventario, inventarioRoute);
         this.app.use(this.apiPatch.ventas, ventasRoute);
         this.app.use(this.apiPatch.productoMsql, ProductoMsqlRoute);
+        this.app.use(this.apiPatch.reportePdf, ReportePdfRoute);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: 'public'});
           });
