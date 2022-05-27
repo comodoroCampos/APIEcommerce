@@ -19,7 +19,7 @@ export const getProductosFecha = async (req: Request, res: Response) => {
         const productos = await ProductoEntity.findAll({
             where: {
                
-                fecha_cr: { [Op.between]: [fecha_desde, fecha_hasta] }
+                created_at: { [Op.between]: [fecha_desde, fecha_hasta] }
                
               },
             order: ['name']
