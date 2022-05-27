@@ -1,14 +1,15 @@
-import express, { Application, Request, Response } from 'express';
+import express, { Application } from 'express';
 import fileUpload from 'express-fileupload';
 import db from '../database/db';
+import dbMysql from '../database/db_mysql';
 import cors from 'cors';
-import path from 'path';
 import socketIO from 'socket.io';
 import http from 'http';
 import apuntesRoute from '../routers/producto_route';
 import stockRoute from '../routers/stock_route';
 import inventarioRoute from '../routers/inventario_route';
 import ventasRoute from '../routers/ventas_route';
+import ProductoMsqlRoute from '../routers/producto_mysql-route';
 
 export default class Server {
     private static _intance: Server;
@@ -24,6 +25,7 @@ export default class Server {
         stock: '/api/stock',
         inventario: '/api/inventario',
         ventas: '/api/ventas',
+        productoMsql: '/api/mysql/producto',
        
     };
 
@@ -71,6 +73,17 @@ export default class Server {
         }
 
     }
+    async dbMySqlConnection() {
+
+        try {
+            await dbMysql.authenticate();
+            console.log('Database online');
+
+        } catch (error) {
+            console.log('error base de datos');
+        }
+
+    }
     middlewares() {
 
         // CORS
@@ -91,6 +104,7 @@ export default class Server {
         this.app.use(this.apiPatch.stock, stockRoute);
         this.app.use(this.apiPatch.inventario, inventarioRoute);
         this.app.use(this.apiPatch.ventas, ventasRoute);
+        this.app.use(this.apiPatch.productoMsql, ProductoMsqlRoute);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: 'public'});
           });
