@@ -7,6 +7,7 @@ export interface productAttributes {
   slug: string;
   description?: string;
   price: number;
+  quantity: number;
   created_at?: Date;
   updated_at?: Date;
 }
@@ -40,6 +41,10 @@ const ProductoEntity = db.define('prodt', {
     },
     updated_at: {
       type: DataTypes.DATE,
+      allowNull: true
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
       allowNull: true
     }
   }, {
