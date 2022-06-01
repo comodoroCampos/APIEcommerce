@@ -52,7 +52,9 @@ const ProductoEntity = db.define('prodt', {
     tableName: 'products',
     timestamps: false
 });
+
 ProductoEntity.hasMany(SaleEntity,{foreignKey : "product_id"});
+
 
 export default ProductoEntity;
   
