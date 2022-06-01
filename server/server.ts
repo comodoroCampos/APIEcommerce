@@ -10,6 +10,7 @@ import stockRoute from '../routers/stock_route';
 import inventarioRoute from '../routers/inventario_route';
 import ventasRoute from '../routers/ventas_route';
 import ProductoMsqlRoute from '../routers/producto_mysql-route';
+import SaleRoute from '../routers/sale_route';
 import ReportePdfRoute from '../routers/reporte_pdf_route';
 
 export default class Server {
@@ -28,7 +29,7 @@ export default class Server {
         ventas: '/api/ventas',
         productoMsql: '/api/mysql/producto',
         reportePdf: '/api/reporte/pdf',
-       
+        sale: '/api/mysql/sale',
     };
 
     private constructor() {
@@ -109,6 +110,7 @@ export default class Server {
         this.app.use(this.apiPatch.ventas, ventasRoute);
         this.app.use(this.apiPatch.productoMsql, ProductoMsqlRoute);
         this.app.use(this.apiPatch.reportePdf, ReportePdfRoute);
+        this.app.use(this.apiPatch.sale, SaleRoute);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: 'public'});
           });
