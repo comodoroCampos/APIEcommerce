@@ -3,7 +3,7 @@ import db from '../database/db_mysql';
 import ProductoEntity from './product';
 import UserEntity from './user';
 
-export interface productAttributes {
+export interface salesAttributes {
   id: number;
   amount: number;
   status: string;
@@ -34,9 +34,9 @@ const SaleEntity = db.define('ventas', {
       references: {
         model: 'products',
         key: 'id'
-      }
 
-   
+      },
+
     },
     user_id: {
       type: DataTypes.BIGINT,
