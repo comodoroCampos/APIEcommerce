@@ -18,18 +18,13 @@ export const getSales = async (req: Request, res: Response) => {
     const sales: VentasAttributes[] = [];
 
     for (const key of ventas) {
-      const prd: productAttributes =  cast(await
-        ProductoEntity.findByPk(key.product_id)
-      );
-      const usr: userAttributes =  cast(await UserEntity.findByPk(key.user_id));
-
-      console.log(prd);
       const venta: VentasAttributes = {
         id: key.id,
         amount: key.amount,
         status: key.status,
-        producto: prd,
-        user: usr,
+        producto: cast(await
+        ProductoEntity.findByPk(key.product_id)),
+        user: cast(await UserEntity.findByPk(key.user_id)),
         created_at: key.created_at,
         updated_at: key.updated_at,
       };
