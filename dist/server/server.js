@@ -34,7 +34,7 @@ class Server {
             inventario: '/api/inventario',
             ventas: '/api/ventas',
             productoMsql: '/api/mysql/producto',
-            reportePdf: '/api/reporte/pdf',
+            reportePdf: '/api/reporte',
             sale: '/api/mysql/sale',
         };
         this.app = (0, express_1.default)();

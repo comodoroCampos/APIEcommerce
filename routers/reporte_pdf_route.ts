@@ -1,11 +1,12 @@
 import { Router } from 'express';
-import { getPdfProductos } from '../controllers/reporte_excel_controller';
+import { getExcelProductos, getPdfProductos } from '../controllers/reporte_excel_controller';
 
 
 
 const router: Router = Router();
 
-router.get('/', getPdfProductos);
+router.get('/pdf', getPdfProductos);
+router.get('/excel', getExcelProductos);
 
 
 

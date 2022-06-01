@@ -28,7 +28,7 @@ export default class Server {
         inventario: '/api/inventario',
         ventas: '/api/ventas',
         productoMsql: '/api/mysql/producto',
-        reportePdf: '/api/reporte/pdf',
+        reportePdf: '/api/reporte',
         sale: '/api/mysql/sale',
     };
 
