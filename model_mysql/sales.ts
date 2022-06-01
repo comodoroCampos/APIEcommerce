@@ -1,5 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import db from '../database/db_mysql';
+import ProductoEntity from './product';
+import UserEntity from './user';
 
 export interface productAttributes {
   id: number;
@@ -11,7 +13,7 @@ export interface productAttributes {
   updated_at?: Date;
 }
 
-const SaleEntity = db.define('sale', {
+const SaleEntity = db.define('ventas', {
     id: {
       autoIncrement: true,
       type: DataTypes.BIGINT.UNSIGNED,
@@ -26,18 +28,18 @@ const SaleEntity = db.define('sale', {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    product_id: {
-        autoIncrement: true,
-        type: DataTypes.BIGINT.UNSIGNED,
-        allowNull: false,
-        primaryKey: true
+    product_id: { 
+      type: DataTypes.BIGINT,
+      allowNull: false,
+
+   
     },
     user_id: {
-        autoIncrement: true,
-        type: DataTypes.BIGINT.UNSIGNED,
-        allowNull: false,
-        primaryKey: true
+      type: DataTypes.BIGINT,
+      allowNull: false,
+  
     },
+    
     created_at: {
       type: DataTypes.DATE,
       allowNull: true
@@ -50,7 +52,6 @@ const SaleEntity = db.define('sale', {
     tableName: 'sales',
     timestamps: false
 });
-
-
+SaleEntity.belongsTo(UserEntity,{foreignKey : "user_id"});
 export default SaleEntity;
   

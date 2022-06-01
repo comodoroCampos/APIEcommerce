@@ -24,6 +24,7 @@ const stock_route_1 = __importDefault(require("../routers/stock_route"));
 const inventario_route_1 = __importDefault(require("../routers/inventario_route"));
 const ventas_route_1 = __importDefault(require("../routers/ventas_route"));
 const producto_mysql_route_1 = __importDefault(require("../routers/producto_mysql-route"));
+const sale_route_1 = __importDefault(require("../routers/sale_route"));
 const reporte_pdf_route_1 = __importDefault(require("../routers/reporte_pdf_route"));
 class Server {
     constructor() {
@@ -34,6 +35,7 @@ class Server {
             ventas: '/api/ventas',
             productoMsql: '/api/mysql/producto',
             reportePdf: '/api/reporte/pdf',
+            sale: '/api/mysql/sale',
         };
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json({ limit: '100mb' }));
@@ -101,6 +103,7 @@ class Server {
         this.app.use(this.apiPatch.ventas, ventas_route_1.default);
         this.app.use(this.apiPatch.productoMsql, producto_mysql_route_1.default);
         this.app.use(this.apiPatch.reportePdf, reporte_pdf_route_1.default);
+        this.app.use(this.apiPatch.sale, sale_route_1.default);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', { root: 'public' });
         });

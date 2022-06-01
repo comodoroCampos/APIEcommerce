@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import db from '../database/db_mysql';
+import SaleEntity from './sales';
 
 export interface userAttributes {
   id: number;
@@ -54,5 +55,6 @@ const UserEntity = db.define('user', {
     tableName: 'users',
     timestamps: false
 });
+UserEntity.hasMany(SaleEntity,{foreignKey : "user_id"});
 
 export default UserEntity;

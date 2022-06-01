@@ -10,10 +10,5 @@ router.post('/', postProducto);
 router.put('/:id', putProducto);
 router.delete('/:id', deleteProducto);
 
-router.get('/', getSales);
-router.get('/:nombre', getSale);
-router.post('/', postSale);
-router.put('/:id', putSale);
-router.delete('/:id', deleteSale);
 
 export default router;
