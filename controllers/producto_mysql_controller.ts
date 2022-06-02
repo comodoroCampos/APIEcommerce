@@ -1,57 +1,40 @@
 import { Request, Response } from 'express';
-import { Op } from "sequelize";
+import { Op, QueryTypes } from "sequelize";
 import ProductoEntity from '../model_mysql/product';
-import SaleEntity from '../model_mysql/sales';
 
-export const getProductos = async (req: Request, res: Response) => {
-    try {
-        const productos = await ProductoEntity.findAll({
-            include:[
-                {model:SaleEntity},
-            
-                
-             ],
-            order: ['name']
-        });
-        res.json({ productos });
-
-    } catch (error) {
-        res.json([]);
+export const getStock = async (req: Request, res: Response) => {
+    let nombre = req.query.nombre;
+    let descripcion = req.query.descripcion;
+    let precioMin = req.query.precioMin;
+    let precioMax = req.query.precioMax;
+  
+    let query = "SELECT";
+    query += " pro.name AS nombre, ";
+    query += " pro.description AS descripcion, ";
+    query += " pro.amount AS precio ";
+    query += " FROM products AS pro  ";
+  
+    let parametros = {};
+    if (nombre) {
+      query += " AND pro. LIKE=:nombre ";
+      parametros = { ...parametros, nombre: `%${nombre}%` };
     }
-}
-export const getProductoById = async (req: Request, res: Response) => {
-    const { id} = req.params;
-    try {
-        const productos = await ProductoEntity.findAll({
-            include:[
-                {model:SaleEntity},
-
-             ],
-             where: {
-                id: id
-              },
-            order: ['name']
-        });
-        res.json({ productos });
-
-    } catch (error) {
-        res.json([]);
+    if (descripcion) {
+      query += " AND pr.description LIKE :descripcion ";
+      parametros = { ...parametros, descripcion: `%${descripcion}%` };
     }
-}
-export const getProductosFecha = async (req: Request, res: Response) => {
-    const { min,max} = req.params;
-    try {
-        const productos = await ProductoEntity.findAll({
-            where: {
-               
-                price: { [Op.between]: [min, max] }
-               
-              },
-            order: ['name']
-        });
-        res.json({ productos });
-
-    } catch (error) {
-        res.json([]);
+    if (precioMin && precioMax) {
+      query += " AND sr.price BETWEEN :precioMin AND :precioMax ";
+      parametros = { ...parametros, precioMin: precioMin, precioMax: precioMax };
     }
-}
+  
+    try {
+      const productos = await ProductoEntity.sequelize?.query(query, {
+        replacements: parametros,
+        type: QueryTypes.SELECT,
+      });
+      res.json({ productos });
+    } catch (error) {
+      res.json([]);
+    }
+  };
