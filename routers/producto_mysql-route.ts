@@ -5,6 +5,6 @@ const router: Router = Router();
 
 router.get('/todos/', getProductos);
 router.get('/ventas/:id', getProductoById);
-router.get('/fecha/:min/:max', getProductosFecha);
+router.get('/precio/:min/:max', getProductosFecha);
 
 export default router;
