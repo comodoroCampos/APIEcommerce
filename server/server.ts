@@ -31,7 +31,6 @@ export default class Server {
         reportePdf: '/api/reporte',
         sale: '/api/mysql/sale',
     };
-
     private constructor() {
         this.app = express();
         this.app.use(express.json({limit: '100mb'}));
