@@ -11,7 +11,8 @@ export const getStock = async (req: Request, res: Response) => {
     let query = "SELECT";
     query += " pro.name AS nombre, ";
     query += " pro.description AS descripcion, ";
-    query += " pro.price AS precio ";
+    query += " pro.price AS precio, ";
+    query += " pro.quantity AS stock ";
     query += " FROM products AS pro  ";
     query += "  WHERE pro.id IS NOT NULL  ";
 
