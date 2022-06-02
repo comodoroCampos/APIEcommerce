@@ -36,12 +36,16 @@ export const getSales = async (req: Request, res: Response) => {
     res.json([]);
   }
 };
+
 export const getSalesFecha = async (req: Request, res: Response) => {
-  const { fecha_desde, fecha_hasta } = req.params;
+  const { fecha_desde, fecha_hasta, usuario, producto, estado } = req.params;
   try {
     const sales = await SaleEntity.findAll({
       where: {
         created_at: { [Op.between]: [fecha_desde, fecha_hasta] },
+        user_id: usuario,
+        product_id: producto,
+        status: estado
       },
       order: ["id"],
     });
