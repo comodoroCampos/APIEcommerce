@@ -34,6 +34,7 @@ export const getSalesFecha = async (req: Request, res: Response) => {
     parametros = { ...parametros, usuario: `%${usuario}%` };
   }
   if (fecha_desde && fecha_hasta) {
+    console.log("fecha_desde", fecha_desde);
     query += " AND sl.created_at BETWEEN :desde AND :hasta ";
     parametros = { ...parametros, desde: fecha_desde, hasta: fecha_hasta };
   }
