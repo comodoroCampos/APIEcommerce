@@ -22,11 +22,11 @@ export const getStock = async (req: Request, res: Response) => {
       parametros = { ...parametros, nombre: `%${nombre}%` };
     }
     if (descripcion) {
-      query += " AND pr.description LIKE :descripcion ";
+      query += " AND pro.description LIKE :descripcion ";
       parametros = { ...parametros, descripcion: `%${descripcion}%` };
     }
     if (precioMin && precioMax) {
-      query += " AND sr.price BETWEEN :precioMin AND :precioMax ";
+      query += " AND pro.price BETWEEN :precioMin AND :precioMax ";
       parametros = { ...parametros, precioMin: precioMin, precioMax: precioMax };
     }
   
