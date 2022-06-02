@@ -39,12 +39,12 @@ export const getProductoById = async (req: Request, res: Response) => {
     }
 }
 export const getProductosFecha = async (req: Request, res: Response) => {
-    const { fecha_desde,fecha_hasta} = req.params;
+    const { min,max} = req.params;
     try {
         const productos = await ProductoEntity.findAll({
             where: {
                
-                created_at: { [Op.between]: [fecha_desde, fecha_hasta] }
+                price: { [Op.between]: [min, max] }
                
               },
             order: ['name']
