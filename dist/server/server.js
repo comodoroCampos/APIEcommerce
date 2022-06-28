@@ -26,6 +26,8 @@ const ventas_route_1 = __importDefault(require("../routers/ventas_route"));
 const producto_mysql_route_1 = __importDefault(require("../routers/producto_mysql-route"));
 const sale_route_1 = __importDefault(require("../routers/sale_route"));
 const reporte_pdf_route_1 = __importDefault(require("../routers/reporte_pdf_route"));
+const factura_route_1 = __importDefault(require("../routers/factura_route"));
+const ticket_route_1 = __importDefault(require("../routers/ticket_route"));
 class Server {
     constructor() {
         this.apiPatch = {
@@ -36,6 +38,8 @@ class Server {
             productoMsql: '/api/mysql/producto',
             reportePdf: '/api/reporte',
             sale: '/api/mysql/sale',
+            factura: '/api/mysql/factura',
+            ticket: '/api/mysql/ticket',
         };
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json({ limit: '100mb' }));
@@ -104,6 +108,8 @@ class Server {
         this.app.use(this.apiPatch.productoMsql, producto_mysql_route_1.default);
         this.app.use(this.apiPatch.reportePdf, reporte_pdf_route_1.default);
         this.app.use(this.apiPatch.sale, sale_route_1.default);
+        this.app.use(this.apiPatch.factura, factura_route_1.default);
+        this.app.use(this.apiPatch.ticket, ticket_route_1.default);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', { root: 'public' });
         });

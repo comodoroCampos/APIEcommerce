@@ -12,6 +12,8 @@ import ventasRoute from '../routers/ventas_route';
 import ProductoMsqlRoute from '../routers/producto_mysql-route';
 import SaleRoute from '../routers/sale_route';
 import ReportePdfRoute from '../routers/reporte_pdf_route';
+import FacturaRoute from '../routers/factura_route'
+import TicketRoute from '../routers/ticket_route'
 
 export default class Server {
     private static _intance: Server;
@@ -30,6 +32,8 @@ export default class Server {
         productoMsql: '/api/mysql/producto',
         reportePdf: '/api/reporte',
         sale: '/api/mysql/sale',
+        factura: '/api/mysql/factura',
+        ticket: '/api/mysql/ticket',
     };
     private constructor() {
         this.app = express();
@@ -110,6 +114,8 @@ export default class Server {
         this.app.use(this.apiPatch.productoMsql, ProductoMsqlRoute);
         this.app.use(this.apiPatch.reportePdf, ReportePdfRoute);
         this.app.use(this.apiPatch.sale, SaleRoute);
+        this.app.use(this.apiPatch.factura, FacturaRoute);
+        this.app.use(this.apiPatch.ticket, TicketRoute);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: 'public'});
           });

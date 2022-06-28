@@ -1,11 +1,11 @@
 import {Sequelize}  from 'sequelize';
 
 const db = new Sequelize(
-  process.env.DB_DATABASE ||'ccl50745_api',
-  process.env.DB_USERNAME || 'ccl50745_api',
-  process.env.DB_PASSWORD || 'hc(rHIdOs$A_',
+  process.env.DB_DATABASE ||'api_ecommerce',
+  process.env.DB_USERNAME || 'reporte',
+  process.env.DB_PASSWORD || 'Reporte2022',
     {
-      host: process.env.DB_HOST ||'190.107.177.232',
+      host: process.env.DB_HOST ||'database-mysql.cbbkogyfaxh5.us-east-1.rds.amazonaws.com',
       port: 3306,
       dialect: "mysql",
     }
