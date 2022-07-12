@@ -55,8 +55,8 @@ export const getSalesGrafico = async (req: Request, res: Response) => {
 
   let query = ' SELECT ';
   query += ' SUM(sl.amount) AS total, ';
-  query += ' DATE_FORMAT(sl.created_at, "%d-%m-%Y") AS fecha ';
-  query += ' FROM sales AS sl GROUP BY DATE_FORMAT(sl.created_at, "%d-%m-%Y") ';
+  query += ' DATE_FORMAT(sl.created_at, "%m-%Y") AS fecha ';
+  query += ' FROM sales AS sl GROUP BY DATE_FORMAT(sl.created_at, "%m-%Y") ';
 
 
   try {
