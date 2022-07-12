@@ -57,11 +57,11 @@ export const getSalesGrafico = async (req: Request, res: Response) => {
   query += ' FROM sales AS sl GROUP BY DATE_FORMAT(sl.created_at, "%d-%m-%Y") ';
 
   try {
-    const sales = await SaleEntity.sequelize?.query(query, {
+    const ventas = await SaleEntity.sequelize?.query(query, {
      
       type: QueryTypes.SELECT,
     });
-    res.json({ sales });
+    res.json({ ventas });
   } catch (error) {
     res.json([]);
   }
