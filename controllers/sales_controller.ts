@@ -51,13 +51,10 @@ export const getSalesFecha = async (req: Request, res: Response) => {
 };
 export const getSalesGrafico = async (req: Request, res: Response) => {
 
-
-
   let query = ' SELECT ';
   query += ' SUM(sl.amount) AS total, ';
-  query += ' DATE_FORMAT(sl.created_at, "%m-%Y") AS fecha ';
-  query += ' FROM sales AS sl GROUP BY DATE_FORMAT(sl.created_at, "%m-%Y") ';
-
+  query += ' DATE_FORMAT(sl.created_at, "%d-%m-%Y") AS fecha ';
+  query += ' FROM sales AS sl GROUP BY DATE_FORMAT(sl.created_at, "%d-%m-%Y") ';
 
   try {
     const sales = await SaleEntity.sequelize?.query(query, {
