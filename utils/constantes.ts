@@ -1,0 +1,1 @@
+export const SECRETJWT='TokenVRgs123@(hs%$$fsiubbsdusi132.,,dsaa';

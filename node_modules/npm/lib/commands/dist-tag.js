@@ -12,9 +12,9 @@ class DistTag extends BaseCommand {
   static params = ['workspace', 'workspaces', 'include-workspace-root']
   static name = 'dist-tag'
   static usage = [
-    'add <pkg>@<version> [<tag>]',
-    'rm <pkg> <tag>',
-    'ls [<pkg>]',
+    'add <package-spec (with version)> [<tag>]',
+    'rm <package-spec> <tag>',
+    'ls [<package-spec>]',
   ]
 
   static ignoreImplicitWorkspace = false
@@ -90,7 +90,7 @@ class DistTag extends BaseCommand {
     log.verbose('dist-tag add', defaultTag, 'to', spec.name + '@' + version)
 
     if (!spec.name || !version || !defaultTag) {
-      throw this.usageError()
+      throw this.usageError('must provide a spec with a name and version, and a tag to add')
     }
 
     const t = defaultTag.trim()
@@ -148,7 +148,7 @@ class DistTag extends BaseCommand {
 
   async list (spec, opts) {
     if (!spec) {
-      if (this.npm.config.get('global')) {
+      if (this.npm.global) {
         throw this.usageError()
       }
       const { name } = await readPackage(path.resolve(this.npm.prefix, 'package.json'))

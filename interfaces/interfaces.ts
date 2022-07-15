@@ -48,3 +48,7 @@ export interface TicketElement {
   name:          string;
   producto:          string;
 }
+export interface InputLogin{
+  email:string;
+  password:string;
+}
