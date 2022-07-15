@@ -14,6 +14,7 @@ import SaleRoute from '../routers/sale_route';
 import ReportePdfRoute from '../routers/reporte_pdf_route';
 import FacturaRoute from '../routers/factura_route'
 import TicketRoute from '../routers/ticket_route'
+import LoginRoute from '../routers/login_route'
 
 export default class Server {
     private static _intance: Server;
@@ -34,6 +35,7 @@ export default class Server {
         sale: '/api/mysql/sale',
         factura: '/api/mysql/factura',
         ticket: '/api/mysql/ticket',
+        login: '/api/login',
     };
     private constructor() {
         this.app = express();
@@ -116,6 +118,7 @@ export default class Server {
         this.app.use(this.apiPatch.sale, SaleRoute);
         this.app.use(this.apiPatch.factura, FacturaRoute);
         this.app.use(this.apiPatch.ticket, TicketRoute);
+        this.app.use(this.apiPatch.login, LoginRoute);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', {root: 'public'});
           });

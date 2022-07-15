@@ -52,3 +52,7 @@ export interface InputLogin{
   email:string;
   password:string;
 }
+export interface TokenData{
+  user:string;
+  fecha:Date;
+}

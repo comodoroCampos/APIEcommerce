@@ -28,6 +28,7 @@ const sale_route_1 = __importDefault(require("../routers/sale_route"));
 const reporte_pdf_route_1 = __importDefault(require("../routers/reporte_pdf_route"));
 const factura_route_1 = __importDefault(require("../routers/factura_route"));
 const ticket_route_1 = __importDefault(require("../routers/ticket_route"));
+const login_route_1 = __importDefault(require("../routers/login_route"));
 class Server {
     constructor() {
         this.apiPatch = {
@@ -40,6 +41,7 @@ class Server {
             sale: '/api/mysql/sale',
             factura: '/api/mysql/factura',
             ticket: '/api/mysql/ticket',
+            login: '/api/login',
         };
         this.app = (0, express_1.default)();
         this.app.use(express_1.default.json({ limit: '100mb' }));
@@ -110,6 +112,7 @@ class Server {
         this.app.use(this.apiPatch.sale, sale_route_1.default);
         this.app.use(this.apiPatch.factura, factura_route_1.default);
         this.app.use(this.apiPatch.ticket, ticket_route_1.default);
+        this.app.use(this.apiPatch.login, login_route_1.default);
         this.app.get('*', (req, res) => {
             res.sendFile('index.html', { root: 'public' });
         });

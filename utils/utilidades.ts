@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { TokenData } from "../interfaces/interfaces";
 
 import { SECRETJWT } from "./constantes";
 
@@ -13,7 +14,7 @@ export const cast = (obj: any) => {
     return JSON.parse(window.atob(base64));
   };
   
-  export const generaToken = (payload: string) => {
+  export const generaToken = (payload: TokenData) => {
     return new Promise((resolve, reject) => {
      
       jwt.sign(

@@ -1,63 +1,79 @@
 import axios from "axios";
-import { InputLogin } from "../interfaces/interfaces";
+import { InputLogin, TokenData } from '../interfaces/interfaces';
 import { generaToken } from "../utils/utilidades";
-import { Request,  Response } from "express";
+import { Request, Response } from "express";
+import FormData from "form-data";
 
- const loginRest = async (user: string, pass: string) => {
-    const url = "http://52.4.132.209:5000/login";
-    
-    let autorizado = false;
+const loginRest = async (user: string, pass: string) => {
+  let data = new FormData();
+  data.append("email", user);
+  data.append("password", pass);
+
+  const url = "http://52.4.132.209:5000/login";
+
+  let autorizado = false;
+  var config = {
+    method: 'post',
+    url: 'http://52.4.132.209:5000/login',
+    headers: { 
+      ...data.getHeaders()
+    },
+    data : data
+  };
   try {
     const instance = axios.create({
       baseURL: url,
-      params: { user, pass },
+      headers: { 
+        ...data.getHeaders()
+      },
+      data: data,
+      
     });
 
-    const resp = await instance.post(url);
+    const resp = await instance.post(url,data,config);
 
-   //const data = resp.data;
+    //const data = resp.data;
     const estado: number = resp.status;
     if (estado == 201) {
       autorizado = true;
     }
-} catch (error) {
+  } catch (error) {
     console.log(error);
-}
-return autorizado;
-
+  }
+  return autorizado;
 };
+
+
 export const login = async (req: Request, res: Response) => {
+  const { body } = req;
 
-    const { body } = req;
-    
-    const parametros:InputLogin |  any=body;
-    try {
-      const respuesta:  boolean = await loginRest(
-        parametros.email,
-        parametros.password
-      );
-     
-      if (respuesta) {
-      
-        const token = await generaToken(parametros.email);
-       
-        res.json({
-          ok: true,
-          token: token,
-        });
-
-      } else {
-
-        res.json({
-          ok: false,
-          token: "",
-        });
-      }
-    } catch (error) {
+  const parametros: InputLogin | any = body;
+  try {
+    const respuesta: boolean = await loginRest(
+      parametros.email,
+      parametros.password
+    );
+console.log(respuesta);
+    if (respuesta) {
+        const tokenData:TokenData={
+            user:parametros.email,
+            fecha:new Date()
+        };
+      const token = await generaToken(tokenData);
+      res.json({
+        ok: true,
+        token: token,
+      });
+    } else {
       res.json({
         ok: false,
-        token: '',
+        token: "",
       });
     }
-  };
-
+  } catch (error) {
+    res.json({
+      ok: false,
+      token: "",
+    });
+  }
+};
