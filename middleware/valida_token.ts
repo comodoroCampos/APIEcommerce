@@ -7,6 +7,9 @@ export const validaToken = (req: Request, res: Response, next: () => void) => {
     const token = req.header("token");
   
     if (!token) {
+
+      console.log(token);
+      console.log('ACCESO_DENEGADO');
       return res.status(401).json({
         ok: false,
         token: null,
